@@ -1,7 +1,13 @@
+#assigning the dataset
 data<-myData1
+#the dependent variable
 var1<-"BODYFAT"
+#threshold value
 alpha<-0.01
+
+#list of all variables in your data set
 list<-c("BODYFAT","AGE","WEIGHT","HEIGHT","NECK","CHEST","ABDOMEN","HIP","THIGH","KNEE","ANKLE","BICEPS","FOREARM","WRIST")
+
 forwardstepwise<- function(var1, list, data, alpha) {
   data <- data[,list]
   mySubModel <- lm(as.formula(paste(var1, "~", 1, sep = "")),data = data)
@@ -40,4 +46,6 @@ forwardstepwise<- function(var1, list, data, alpha) {
   answer <-c(maxCorColumnNames,pvalues,partialCorr)
   return(answer)
 }
+
+#function call which returns the features which should be included in the model
 forwardstepwise("BODYFAT", list, myData1, 0.01)

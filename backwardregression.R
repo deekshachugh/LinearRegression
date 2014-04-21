@@ -1,9 +1,15 @@
 library(ppcor)
 
 data<-myData1
+#dependent variable
 var1<-"BODYFAT"
+#threshold value
 alpha<-0.01
+
+#list of all variables in the dataset
 list<-c("AGE","WEIGHT","HEIGHT","NECK","CHEST","ABDOMEN","HIP","THIGH","KNEE","ANKLE","BICEPS","FOREARM","WRIST")
+
+#function which will return the important features in yoru model
 backwardstepwise<- function(var1, list, data, alpha) {
   data <- data[,c(list,var1)]
   mySubModel <- lm(as.formula(paste(var1, "~", paste(list, collapse = "+"), sep = "")), data)
@@ -47,4 +53,6 @@ backwardstepwise<- function(var1, list, data, alpha) {
   answer <- c(minCorColumnNames,pvalues,partialCorr)
   return(answer)
 }
+
+#function call
 backwardstepwise("BODYFAT", list, myData1, 0.01)
